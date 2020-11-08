@@ -5,6 +5,7 @@ import fetch from "cross-fetch";
 
 export default function Home() {
   const [products, setProducts] = useState(null);
+  const [users, setUsers] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:4000/query", {
@@ -34,6 +35,45 @@ export default function Home() {
       .catch((res) => console.log(res));
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:4000/query", {
+      method: "POST",
+      body: JSON.stringify({
+        name: "users",
+        schema: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              id: {
+                type: "string",
+              },
+              name: {
+                type: "string",
+              },
+              orders: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    id: {
+                      type: "string",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then(async (res) => setUsers(await res.json()))
+      .catch((res) => console.log(res));
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -49,7 +89,24 @@ export default function Home() {
           {products
             ? products.map((p) => (
                 <p>
-                  {p.id} - {p.name} - {p.category}
+                  {p.id} - {p.name}
+                </p>
+              ))
+            : "loading..."}
+        </h3>
+
+        <h3>
+          {users
+            ? users.map((u) => (
+                <p>
+                  {u.id} - {u.name}
+                  {u.orders && (
+                    <ul>
+                      {u.orders.map((o) => (
+                        <li>{o.id}</li>
+                      ))}
+                    </ul>
+                  )}
                 </p>
               ))
             : "loading..."}

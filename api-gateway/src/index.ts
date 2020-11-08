@@ -10,15 +10,16 @@ app.use(express.json());
 app.post("/query", async (req, res) => {
   console.log(`Post to /query received`);
   const { name, variables, schema } = req.body;
+
+  console.log({ name, variables, schema });
   const query = queries[(name as unknown) as string];
 
   if (!query) {
     return res.status(400).send(`Operation not supported: query ${name}`);
   }
 
-  console.log({ name, variables, schema });
-
-  const result = await query(variables, schema);
+  // Validate that "schema" is compatible with query schema
+  const result = await query.resolve(variables, schema);
   const validated = validateOutput(schema, result);
 
   res.send(validated);
