@@ -1,7 +1,39 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import fetch from "cross-fetch";
 
 export default function Home() {
+  const [products, setProducts] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/query", {
+      method: "POST",
+      body: JSON.stringify({
+        name: "products",
+        schema: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              id: {
+                type: "string",
+              },
+              name: {
+                type: "string",
+              },
+            },
+          },
+        },
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then(async (res) => setProducts(await res.json()))
+      .catch((res) => console.log(res));
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,9 +45,18 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+        <h3>
+          {products
+            ? products.map((p) => (
+                <p>
+                  {p.id} - {p.name} - {p.category}
+                </p>
+              ))
+            : "loading..."}
+        </h3>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
@@ -56,10 +97,10 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
     </div>
-  )
+  );
 }

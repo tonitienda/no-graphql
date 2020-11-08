@@ -1,0 +1,64 @@
+{
+  "products": [
+    {
+      "id": "e63072de-94b1-42c2-a8a6-cf30b425aea5",
+      "name": "Clock",
+      "category": "Time"
+    },
+    {
+      "id": "ac9fd041-f438-48e3-85ee-8fd18c934bdd",
+      "name": "Watch",
+      "category": "Time"
+    },
+    {
+      "id": "895ae4b7-edaf-43ba-b68e-e5b3833aae13",
+      "name": "Compass",
+      "category": "Space"
+    },
+    {
+      "id": "049d7012-56c1-4176-9c47-fb815cf1e581",
+      "name": "GPS",
+      "category": "Space"
+    }
+  ],
+  "users": [
+    {
+      "id": "5ece4dd2-d9e3-4d75-ab47-677a3f31cbda",
+      "name": "John Doe"
+    },
+    {
+      "id": "fbfcdcd2-3814-4193-8797-cc27d12c5733",
+      "name": "Jane Doe"
+    }
+  ],
+  "orders": [
+    {
+      "id": "9e2631e0-5842-485e-81df-09a6c4dc50fc",
+      "userId": "5ece4dd2-d9e3-4d75-ab47-677a3f31cbda",
+      "items": [
+        {
+          "productId": "e63072de-94b1-42c2-a8a6-cf30b425aea5",
+          "quantity": 1
+        },
+        {
+          "productId": "895ae4b7-edaf-43ba-b68e-e5b3833aae13",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "386beb25-2c14-4a9d-9c30-98f8100775f2",
+      "userId": "fbfcdcd2-3814-4193-8797-cc27d12c5733",
+      "items": [
+        {
+          "productId": "ac9fd041-f438-48e3-85ee-8fd18c934bdd",
+          "quantity": 1
+        },
+        {
+          "productId": "049d7012-56c1-4176-9c47-fb815cf1e581",
+          "quantity": 1
+        }
+      ]
+    }
+  ]
+}
