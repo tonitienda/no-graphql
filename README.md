@@ -1,2 +1,2 @@
 # no-graphql
-Createing a React app and a ApiGateway without Graphql with similar features. (if possible)
+Creating a React app and a Graphql-like ApiGateway without Graphql with similar features. (if possible)
